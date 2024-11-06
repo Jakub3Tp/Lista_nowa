@@ -1,52 +1,41 @@
-class Node:
-    def __init__(self, value):
-        self.value = value
-        self.next = None
+import random
 
 
 class Lista:
-    def __init__(self):
-        self.head = None
+    def __init__(self, rozmiar):
+        self.rozmiar = rozmiar
+        self.lista = [None] * rozmiar
 
-    def add(self, value):
-        new_node = Node(value)
-        if not self.head:
-            self.head = new_node
-        else:
-            current = self.head
-            while current.next:
-                current = current.next
-            current.next = new_node
+    def dodaj(self, wartosc):
+        for i in range(self.rozmiar):
+            if self.lista[i] is None:
+                self.lista[i] = wartosc
+                return 0
+
+    def usun(self, indeks):
+        if indeks < 0 or indeks >= self.rozmiar or self.lista[indeks] is None:
+            return 0
+        for i in range(indeks, self.rozmiar - 1):
+            self.lista[i] = self.lista[i + 1]
+        self.lista[self.rozmiar - 1] = None
+
+    def pobierz(self, indeks):
+        if indeks < 0 or indeks >= self.rozmiar or self.lista[indeks] is None:
+            return None
+        return self.lista[indeks]
 
     def display(self):
-        elements = []
-        current = self.head
-        while current:
-            elements.append(current.value)
-            current = current.next
-        print(",".join(map(str, elements)))
+        elementy = [el for el in self.lista if el is not None]
+        print("Lista:", elementy)
 
-    def remove(self, value):
-        current = self.head
-        previous = None
-
-        while current:
-            if current.value == value:
-                if previous is None:
-                    self.head = current.next
-                else:
-                    previous.next = current.next
-                return
-            previous = current
-            current = current.next
-        print(f"Value {value} not found in the list.")
 
 def main():
-    Nowa_Lista = Lista()
-    Nowa_Lista.add(10)
-    Nowa_Lista.add(20)
-    Nowa_Lista.add(30)
-    Nowa_Lista.remove(20)
-    Nowa_Lista.display()
+    lista_nowa = Lista(3)
+    lista_nowa.dodaj(10)
+    lista_nowa.dodaj(20)
+    lista_nowa.dodaj(30)
+    lista_nowa.usun(1)
+    lista_nowa.display()
+
 if __name__ == "__main__":
     main()
