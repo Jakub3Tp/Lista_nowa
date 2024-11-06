@@ -25,7 +25,7 @@ class Lista:
         return self.lista[indeks]
 
     def display(self):
-        elementy = [el for el in self.lista if el is not None]
+        elementy = [i for i in self.lista if i is not None]
         print("Lista:", elementy)
 
 
